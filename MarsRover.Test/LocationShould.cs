@@ -30,9 +30,9 @@ namespace MarsRover.Test
         {
             var coordinate = new Location();
 
-            coordinate.SetDirection('S');
+            coordinate.SetDirection(DirectionEnum.North);
             
-            Assert.Equal('S', coordinate.GetDirection());
+            Assert.Equal(DirectionEnum.North, coordinate.GetDirection());
         }
     }
 }
