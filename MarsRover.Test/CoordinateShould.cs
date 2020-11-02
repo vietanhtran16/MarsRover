@@ -1,29 +1,28 @@
 using MarsRover.Logic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace MarsRover.Test
 {
-    [TestClass]
     public class CoordinateShould
     {
-        [TestMethod]
+        [Fact]
         public void SetXCoordinate()
         {
             var coordinate = new Coordinate();
 
             coordinate.SetX(1);
             
-            Assert.AreEqual(1, coordinate.GetX());
+            Assert.Equal(1, coordinate.GetX());
         }
         
-        [TestMethod]
+        [Fact]
         public void SetYCoordinate()
         {
             var coordinate = new Coordinate();
 
             coordinate.SetY(1);
             
-            Assert.AreEqual(1, coordinate.GetY());
+            Assert.Equal(1, coordinate.GetY());
         }
     }
 }
