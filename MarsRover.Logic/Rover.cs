@@ -58,6 +58,26 @@ namespace MarsRover.Logic
             }
         }
         
+        public void TurnRight()
+        {
+            var currentDirection = _location.GetDirection();
+            var currentDirectionIndex = _turnRightOrder.IndexOf(currentDirection);
+            var newDirection = currentDirectionIndex < _turnRightOrder.Count - 1
+                ? _turnRightOrder[currentDirectionIndex + 1]
+                : _turnRightOrder[0];
+            _location.SetDirection(newDirection);
+        }
+        
+        public void TurnLeft()
+        {
+            var currentDirection = _location.GetDirection();
+            var currentDirectionIndex = _turnRightOrder.IndexOf(currentDirection);
+            var newDirection = currentDirectionIndex == 0
+                ? _turnRightOrder[^1]
+                : _turnRightOrder[currentDirectionIndex - 1];
+            _location.SetDirection(newDirection);
+        }
+        
         private void GoUp()
         {
             _location.SetYCoordinate(_location.GetYCoordinate() + 1);
@@ -76,16 +96,6 @@ namespace MarsRover.Logic
         private void GoRight()
         {
             _location.SetXCoordinate(_location.GetXCoordinate() + 1);
-        }
-
-        public void TurnRight()
-        {
-            var currentDirection = _location.GetDirection();
-            var currentDirectionIndex = _turnRightOrder.IndexOf(currentDirection);
-            var newDirection = currentDirectionIndex < _turnRightOrder.Count - 1
-                ? _turnRightOrder[currentDirectionIndex + 1]
-                : _turnRightOrder[0];
-            _location.SetDirection(newDirection);
         }
     }
 }

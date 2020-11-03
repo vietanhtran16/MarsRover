@@ -52,8 +52,8 @@ namespace MarsRover.Test
         [InlineData(DirectionEnum.West, DirectionEnum.North)]
         public void TurnRight(char initialDirection, char expectedDirection)
         {
-            var xCoordinate = 2;
-            var yCoordinate = 2;
+            const int xCoordinate = 2;
+            const int yCoordinate = 2;
             var location = new Location();
             location.SetXCoordinate(xCoordinate);
             location.SetYCoordinate(yCoordinate);
@@ -61,6 +61,28 @@ namespace MarsRover.Test
             
             var rover = new Rover(location);
             rover.TurnRight();
+            
+            Assert.Equal(xCoordinate, rover.GetLocation().GetXCoordinate());
+            Assert.Equal(yCoordinate, rover.GetLocation().GetYCoordinate());
+            Assert.Equal(expectedDirection, rover.GetLocation().GetDirection());
+        }
+        
+        [Theory]
+        [InlineData(DirectionEnum.East, DirectionEnum.North)]
+        [InlineData(DirectionEnum.South, DirectionEnum.East)]
+        [InlineData(DirectionEnum.West, DirectionEnum.South)]
+        [InlineData(DirectionEnum.North, DirectionEnum.West)]
+        public void TurnLeft(char initialDirection, char expectedDirection)
+        {
+            const int xCoordinate = 2;
+            const int yCoordinate = 2;
+            var location = new Location();
+            location.SetXCoordinate(xCoordinate);
+            location.SetYCoordinate(yCoordinate);
+            location.SetDirection(initialDirection);
+            
+            var rover = new Rover(location);
+            rover.TurnLeft();
             
             Assert.Equal(xCoordinate, rover.GetLocation().GetXCoordinate());
             Assert.Equal(yCoordinate, rover.GetLocation().GetYCoordinate());
