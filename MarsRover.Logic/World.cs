@@ -1,9 +1,12 @@
+using System.Collections.Generic;
+
 namespace MarsRover.Logic
 {
     public class World
     {
-        private int _width;
-        private int _height;
+        private readonly int _width;
+        private readonly int _height;
+        private readonly List<Coordinate> _obstacles = new List<Coordinate>();
         public World(int width, int height)
         {
             _width = width;
@@ -18,6 +21,16 @@ namespace MarsRover.Logic
         public int GetHeight()
         {
             return _height;
+        }
+
+        public void SetObstacle(Coordinate obstacle)
+        {
+            _obstacles.Add(obstacle);
+        }
+
+        public List<Coordinate> GetObstacles()
+        {
+            return _obstacles;
         }
     }
 }
