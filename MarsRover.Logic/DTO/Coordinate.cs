@@ -1,6 +1,6 @@
 namespace MarsRover.Logic
 {
-    public class Location
+    public class Coordinate
     {
         private int _xCoordinate;
         private int _yCoordinate;

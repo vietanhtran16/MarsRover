@@ -4,23 +4,25 @@ namespace MarsRover.Logic
 {
     public class Rover
     {
-        private readonly Location _location;
+        private readonly Coordinate _coordinate;
+        private char _direction;
 
         private readonly List<char> _turnRightOrder = new List<char>()
             {DirectionEnum.North, DirectionEnum.East, DirectionEnum.South, DirectionEnum.West};
-        public Rover(Location location)
+        public Rover(Coordinate coordinate, char initialDirection)
         {
-            _location = location;
+            _coordinate = coordinate;
+            _direction = initialDirection;
         }
 
-        public Location GetLocation()
+        public Coordinate GetCoordinate()
         {
-            return _location;
+            return _coordinate;
         }
 
         public void MoveForward()
         {
-            var currentDirection = _location.GetDirection();
+            var currentDirection = _coordinate.GetDirection();
             switch (currentDirection)
             {
                 case DirectionEnum.South:
@@ -40,7 +42,7 @@ namespace MarsRover.Logic
         
         public void MoveBackward()
         {
-            var currentDirection = _location.GetDirection();
+            var currentDirection = _coordinate.GetDirection();
             switch (currentDirection)
             {
                 case DirectionEnum.North:
@@ -60,42 +62,52 @@ namespace MarsRover.Logic
         
         public void TurnRight()
         {
-            var currentDirection = _location.GetDirection();
+            var currentDirection = _coordinate.GetDirection();
             var currentDirectionIndex = _turnRightOrder.IndexOf(currentDirection);
             var newDirection = currentDirectionIndex < _turnRightOrder.Count - 1
                 ? _turnRightOrder[currentDirectionIndex + 1]
                 : _turnRightOrder[0];
-            _location.SetDirection(newDirection);
+            SetDirection(newDirection);
         }
         
         public void TurnLeft()
         {
-            var currentDirection = _location.GetDirection();
+            var currentDirection = _coordinate.GetDirection();
             var currentDirectionIndex = _turnRightOrder.IndexOf(currentDirection);
             var newDirection = currentDirectionIndex == 0
                 ? _turnRightOrder[^1]
                 : _turnRightOrder[currentDirectionIndex - 1];
-            _location.SetDirection(newDirection);
+            SetDirection(newDirection);
         }
         
         private void GoUp()
         {
-            _location.SetYCoordinate(_location.GetYCoordinate() + 1);
+            _coordinate.SetYCoordinate(_coordinate.GetYCoordinate() + 1);
         }
 
         private void GoDown()
         {
-            _location.SetYCoordinate(_location.GetYCoordinate() - 1);
+            _coordinate.SetYCoordinate(_coordinate.GetYCoordinate() - 1);
         }
 
         private void GoLeft()
         {
-            _location.SetXCoordinate(_location.GetXCoordinate() - 1);
+            _coordinate.SetXCoordinate(_coordinate.GetXCoordinate() - 1);
         }
 
         private void GoRight()
         {
-            _location.SetXCoordinate(_location.GetXCoordinate() + 1);
+            _coordinate.SetXCoordinate(_coordinate.GetXCoordinate() + 1);
+        }
+
+        public char GetDirection()
+        {
+            return _direction;
+        }
+
+        private void SetDirection(char newDirection)
+        {
+            _direction = newDirection;
         }
     }
 }

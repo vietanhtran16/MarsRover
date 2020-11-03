@@ -12,17 +12,17 @@ namespace MarsRover.Test
         [InlineData(1,1,DirectionEnum.East, 2,1, DirectionEnum.East)]
         public void MoveForward(int initialX, int initialY, char initialDirection, int expectedX, int expectedY, char expectedDirection)
         {
-            var location = new Location();
+            var location = new Coordinate();
             location.SetXCoordinate(initialX);
             location.SetYCoordinate(initialY);
             location.SetDirection(initialDirection);
             
-            var rover = new Rover(location);
+            var rover = new Rover(location, initialDirection);
             rover.MoveForward();
             
-            Assert.Equal(expectedX, rover.GetLocation().GetXCoordinate());
-            Assert.Equal(expectedY, rover.GetLocation().GetYCoordinate());
-            Assert.Equal(expectedDirection, rover.GetLocation().GetDirection());
+            Assert.Equal(expectedX, rover.GetCoordinate().GetXCoordinate());
+            Assert.Equal(expectedY, rover.GetCoordinate().GetYCoordinate());
+            Assert.Equal(expectedDirection, rover.GetDirection());
         }
 
         [Theory]
@@ -32,17 +32,17 @@ namespace MarsRover.Test
         [InlineData(2,1,DirectionEnum.West, 3,1, DirectionEnum.West)]
         public void MoveBackward(int initialX, int initialY, char initialDirection, int expectedX, int expectedY, char expectedDirection)
         {
-            var location = new Location();
+            var location = new Coordinate();
             location.SetXCoordinate(initialX);
             location.SetYCoordinate(initialY);
             location.SetDirection(initialDirection);
             
-            var rover = new Rover(location);
+            var rover = new Rover(location, initialDirection);
             rover.MoveBackward();
             
-            Assert.Equal(expectedX, rover.GetLocation().GetXCoordinate());
-            Assert.Equal(expectedY, rover.GetLocation().GetYCoordinate());
-            Assert.Equal(expectedDirection, rover.GetLocation().GetDirection());
+            Assert.Equal(expectedX, rover.GetCoordinate().GetXCoordinate());
+            Assert.Equal(expectedY, rover.GetCoordinate().GetYCoordinate());
+            Assert.Equal(expectedDirection, rover.GetDirection());
         }
 
         [Theory]
@@ -54,17 +54,17 @@ namespace MarsRover.Test
         {
             const int xCoordinate = 2;
             const int yCoordinate = 2;
-            var location = new Location();
+            var location = new Coordinate();
             location.SetXCoordinate(xCoordinate);
             location.SetYCoordinate(yCoordinate);
             location.SetDirection(initialDirection);
             
-            var rover = new Rover(location);
+            var rover = new Rover(location, initialDirection);
             rover.TurnRight();
             
-            Assert.Equal(xCoordinate, rover.GetLocation().GetXCoordinate());
-            Assert.Equal(yCoordinate, rover.GetLocation().GetYCoordinate());
-            Assert.Equal(expectedDirection, rover.GetLocation().GetDirection());
+            Assert.Equal(xCoordinate, rover.GetCoordinate().GetXCoordinate());
+            Assert.Equal(yCoordinate, rover.GetCoordinate().GetYCoordinate());
+            Assert.Equal(expectedDirection, rover.GetDirection());
         }
         
         [Theory]
@@ -76,17 +76,17 @@ namespace MarsRover.Test
         {
             const int xCoordinate = 2;
             const int yCoordinate = 2;
-            var location = new Location();
+            var location = new Coordinate();
             location.SetXCoordinate(xCoordinate);
             location.SetYCoordinate(yCoordinate);
             location.SetDirection(initialDirection);
             
-            var rover = new Rover(location);
+            var rover = new Rover(location, initialDirection);
             rover.TurnLeft();
             
-            Assert.Equal(xCoordinate, rover.GetLocation().GetXCoordinate());
-            Assert.Equal(yCoordinate, rover.GetLocation().GetYCoordinate());
-            Assert.Equal(expectedDirection, rover.GetLocation().GetDirection());
+            Assert.Equal(xCoordinate, rover.GetCoordinate().GetXCoordinate());
+            Assert.Equal(yCoordinate, rover.GetCoordinate().GetYCoordinate());
+            Assert.Equal(expectedDirection, rover.GetDirection());
         }
     }
 }

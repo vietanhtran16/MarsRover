@@ -8,7 +8,7 @@ namespace MarsRover.Test
         [Fact]
         public void SetXCoordinate()
         {
-            var coordinate = new Location();
+            var coordinate = new Coordinate();
 
             coordinate.SetXCoordinate(1);
             
@@ -18,7 +18,7 @@ namespace MarsRover.Test
         [Fact]
         public void SetYCoordinate()
         {
-            var coordinate = new Location();
+            var coordinate = new Coordinate();
 
             coordinate.SetYCoordinate(1);
             
@@ -28,7 +28,7 @@ namespace MarsRover.Test
         [Fact]
         public void SetDirection()
         {
-            var coordinate = new Location();
+            var coordinate = new Coordinate();
 
             coordinate.SetDirection(DirectionEnum.North);
             
