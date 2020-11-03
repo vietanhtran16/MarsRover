@@ -19,38 +19,58 @@ namespace MarsRover.Logic
             switch (currentDirection)
             {
                 case DirectionEnum.South:
-                    _location.SetYCoordinate(_location.GetYCoordinate() + 1);
+                    GoUp();
                     break;
                 case DirectionEnum.North:
-                    _location.SetYCoordinate(_location.GetYCoordinate() -1);
+                    GoDown();
                     break;
                 case DirectionEnum.East:
-                    _location.SetXCoordinate(_location.GetXCoordinate() + 1);
+                    GoRight();
                     break;
                 default:
-                    _location.SetXCoordinate(_location.GetXCoordinate() -1);
+                    GoLeft();
                     break;
             }
         }
-
+        
         public void MoveBackward()
         {
             var currentDirection = _location.GetDirection();
             switch (currentDirection)
             {
                 case DirectionEnum.North:
-                    _location.SetYCoordinate(_location.GetYCoordinate() + 1);
+                    GoUp();
                     break;
                 case DirectionEnum.East:
-                    _location.SetXCoordinate(_location.GetXCoordinate() -1);
+                    GoLeft();
                     break;
                 case DirectionEnum.West:
-                    _location.SetXCoordinate(_location.GetXCoordinate() + 1);
+                    GoRight();
                     break;
                 default:
-                    _location.SetYCoordinate(_location.GetYCoordinate() - 1);
+                    GoDown();
                     break;
             }
+        }
+        
+        private void GoUp()
+        {
+            _location.SetYCoordinate(_location.GetYCoordinate() + 1);
+        }
+
+        private void GoDown()
+        {
+            _location.SetYCoordinate(_location.GetYCoordinate() - 1);
+        }
+
+        private void GoLeft()
+        {
+            _location.SetXCoordinate(_location.GetXCoordinate() - 1);
+        }
+
+        private void GoRight()
+        {
+            _location.SetXCoordinate(_location.GetXCoordinate() + 1);
         }
     }
 }
