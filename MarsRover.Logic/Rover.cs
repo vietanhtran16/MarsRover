@@ -1,8 +1,13 @@
+using System.Collections.Generic;
+
 namespace MarsRover.Logic
 {
     public class Rover
     {
         private readonly Location _location;
+
+        private readonly List<char> _turnRightOrder = new List<char>()
+            {DirectionEnum.North, DirectionEnum.East, DirectionEnum.South, DirectionEnum.West};
         public Rover(Location location)
         {
             _location = location;
@@ -71,6 +76,16 @@ namespace MarsRover.Logic
         private void GoRight()
         {
             _location.SetXCoordinate(_location.GetXCoordinate() + 1);
+        }
+
+        public void TurnRight()
+        {
+            var currentDirection = _location.GetDirection();
+            var currentDirectionIndex = _turnRightOrder.IndexOf(currentDirection);
+            var newDirection = currentDirectionIndex < _turnRightOrder.Count - 1
+                ? _turnRightOrder[currentDirectionIndex + 1]
+                : _turnRightOrder[0];
+            _location.SetDirection(newDirection);
         }
     }
 }
