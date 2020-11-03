@@ -6,10 +6,10 @@ namespace MarsRover.Test
     public class RoverShould
     {
         [Theory]
-        [InlineData(1,1,DirectionEnum.South, 2,1, DirectionEnum.South)]
-        [InlineData(2,1,DirectionEnum.North, 1,1, DirectionEnum.North)]
-        [InlineData(1,2,DirectionEnum.West, 1,1, DirectionEnum.West)]
-        [InlineData(1,1,DirectionEnum.East, 1,2, DirectionEnum.East)]
+        [InlineData(1,1,DirectionEnum.South, 1,2, DirectionEnum.South)]
+        [InlineData(1,2,DirectionEnum.North, 1,1, DirectionEnum.North)]
+        [InlineData(2,1,DirectionEnum.West, 1,1, DirectionEnum.West)]
+        [InlineData(1,1,DirectionEnum.East, 2,1, DirectionEnum.East)]
         public void MoveForward(int initialX, int initialY, char initialDirection, int expectedX, int expectedY, char expectedDirection)
         {
             var location = new Location();

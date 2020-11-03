@@ -19,18 +19,23 @@ namespace MarsRover.Logic
             switch (currentDirection)
             {
                 case DirectionEnum.South:
-                    _location.SetXCoordinate(_location.GetXCoordinate() + 1);
-                    break;
-                case DirectionEnum.North:
-                    _location.SetXCoordinate(_location.GetXCoordinate() -1);
-                    break;
-                case DirectionEnum.East:
                     _location.SetYCoordinate(_location.GetYCoordinate() + 1);
                     break;
-                default:
+                case DirectionEnum.North:
                     _location.SetYCoordinate(_location.GetYCoordinate() -1);
                     break;
+                case DirectionEnum.East:
+                    _location.SetXCoordinate(_location.GetXCoordinate() + 1);
+                    break;
+                default:
+                    _location.SetXCoordinate(_location.GetXCoordinate() -1);
+                    break;
             }
+        }
+
+        public void MoveBackward()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
