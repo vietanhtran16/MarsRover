@@ -4,7 +4,6 @@ namespace MarsRover.Logic
     {
         private int _xCoordinate;
         private int _yCoordinate;
-        private char _direction;
         public void SetXCoordinate(int value)
         {
             _xCoordinate = value;
@@ -23,16 +22,6 @@ namespace MarsRover.Logic
         public int GetYCoordinate()
         {
             return _yCoordinate;
-        }
-
-        public void SetDirection(char direction)
-        {
-            _direction = direction;
-        }
-
-        public char GetDirection()
-        {
-            return _direction;
         }
     }
 }

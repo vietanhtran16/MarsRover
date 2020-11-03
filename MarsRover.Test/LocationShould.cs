@@ -24,15 +24,5 @@ namespace MarsRover.Test
             
             Assert.Equal(1, coordinate.GetYCoordinate());
         }
-        
-        [Fact]
-        public void SetDirection()
-        {
-            var coordinate = new Coordinate();
-
-            coordinate.SetDirection(DirectionEnum.North);
-            
-            Assert.Equal(DirectionEnum.North, coordinate.GetDirection());
-        }
     }
 }

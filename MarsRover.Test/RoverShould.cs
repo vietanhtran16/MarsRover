@@ -15,7 +15,6 @@ namespace MarsRover.Test
             var location = new Coordinate();
             location.SetXCoordinate(initialX);
             location.SetYCoordinate(initialY);
-            location.SetDirection(initialDirection);
             
             var rover = new Rover(location, initialDirection);
             rover.MoveForward();
@@ -35,7 +34,6 @@ namespace MarsRover.Test
             var location = new Coordinate();
             location.SetXCoordinate(initialX);
             location.SetYCoordinate(initialY);
-            location.SetDirection(initialDirection);
             
             var rover = new Rover(location, initialDirection);
             rover.MoveBackward();
@@ -57,7 +55,6 @@ namespace MarsRover.Test
             var location = new Coordinate();
             location.SetXCoordinate(xCoordinate);
             location.SetYCoordinate(yCoordinate);
-            location.SetDirection(initialDirection);
             
             var rover = new Rover(location, initialDirection);
             rover.TurnRight();
@@ -79,7 +76,6 @@ namespace MarsRover.Test
             var location = new Coordinate();
             location.SetXCoordinate(xCoordinate);
             location.SetYCoordinate(yCoordinate);
-            location.SetDirection(initialDirection);
             
             var rover = new Rover(location, initialDirection);
             rover.TurnLeft();

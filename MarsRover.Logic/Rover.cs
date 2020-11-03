@@ -19,10 +19,15 @@ namespace MarsRover.Logic
         {
             return _coordinate;
         }
+        
+        public char GetDirection()
+        {
+            return _direction;
+        }
 
         public void MoveForward()
         {
-            var currentDirection = _coordinate.GetDirection();
+            var currentDirection = GetDirection();
             switch (currentDirection)
             {
                 case DirectionEnum.South:
@@ -42,7 +47,7 @@ namespace MarsRover.Logic
         
         public void MoveBackward()
         {
-            var currentDirection = _coordinate.GetDirection();
+            var currentDirection = GetDirection();
             switch (currentDirection)
             {
                 case DirectionEnum.North:
@@ -62,7 +67,7 @@ namespace MarsRover.Logic
         
         public void TurnRight()
         {
-            var currentDirection = _coordinate.GetDirection();
+            var currentDirection = GetDirection();
             var currentDirectionIndex = _turnRightOrder.IndexOf(currentDirection);
             var newDirection = currentDirectionIndex < _turnRightOrder.Count - 1
                 ? _turnRightOrder[currentDirectionIndex + 1]
@@ -72,12 +77,17 @@ namespace MarsRover.Logic
         
         public void TurnLeft()
         {
-            var currentDirection = _coordinate.GetDirection();
+            var currentDirection = GetDirection();
             var currentDirectionIndex = _turnRightOrder.IndexOf(currentDirection);
             var newDirection = currentDirectionIndex == 0
                 ? _turnRightOrder[^1]
                 : _turnRightOrder[currentDirectionIndex - 1];
             SetDirection(newDirection);
+        }
+        
+        private void SetDirection(char newDirection)
+        {
+            _direction = newDirection;
         }
         
         private void GoUp()
@@ -98,16 +108,6 @@ namespace MarsRover.Logic
         private void GoRight()
         {
             _coordinate.SetXCoordinate(_coordinate.GetXCoordinate() + 1);
-        }
-
-        public char GetDirection()
-        {
-            return _direction;
-        }
-
-        private void SetDirection(char newDirection)
-        {
-            _direction = newDirection;
         }
     }
 }
