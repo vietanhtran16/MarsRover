@@ -35,7 +35,22 @@ namespace MarsRover.Logic
 
         public void MoveBackward()
         {
-            throw new System.NotImplementedException();
+            var currentDirection = _location.GetDirection();
+            switch (currentDirection)
+            {
+                case DirectionEnum.North:
+                    _location.SetYCoordinate(_location.GetYCoordinate() + 1);
+                    break;
+                case DirectionEnum.East:
+                    _location.SetXCoordinate(_location.GetXCoordinate() -1);
+                    break;
+                case DirectionEnum.West:
+                    _location.SetXCoordinate(_location.GetXCoordinate() + 1);
+                    break;
+                default:
+                    _location.SetYCoordinate(_location.GetYCoordinate() - 1);
+                    break;
+            }
         }
     }
 }

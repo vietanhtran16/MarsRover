@@ -24,5 +24,25 @@ namespace MarsRover.Test
             Assert.Equal(expectedY, rover.GetLocation().GetYCoordinate());
             Assert.Equal(expectedDirection, rover.GetLocation().GetDirection());
         }
+
+        [Theory]
+        [InlineData(1,1,DirectionEnum.North, 1,2, DirectionEnum.North)]
+        [InlineData(1,3,DirectionEnum.South, 1,2, DirectionEnum.South)]
+        [InlineData(4,1,DirectionEnum.East, 3,1, DirectionEnum.East)]
+        [InlineData(2,1,DirectionEnum.West, 3,1, DirectionEnum.West)]
+        public void MoveBackward(int initialX, int initialY, char initialDirection, int expectedX, int expectedY, char expectedDirection)
+        {
+            var location = new Location();
+            location.SetXCoordinate(initialX);
+            location.SetYCoordinate(initialY);
+            location.SetDirection(initialDirection);
+            
+            var rover = new Rover(location);
+            rover.MoveBackward();
+            
+            Assert.Equal(expectedX, rover.GetLocation().GetXCoordinate());
+            Assert.Equal(expectedY, rover.GetLocation().GetYCoordinate());
+            Assert.Equal(expectedDirection, rover.GetLocation().GetDirection());
+        }
     }
 }
