@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using MarsRover.Logic.DTO;
+using MarsRover.Logic.Enums;
 
 namespace MarsRover.Logic
 {

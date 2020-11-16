@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using MarsRover.Logic.DTO;
 
 namespace MarsRover.Logic
 {

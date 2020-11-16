@@ -1,4 +1,4 @@
-namespace MarsRover.Logic
+namespace MarsRover.Logic.Enums
 {
     public static class DirectionEnum
     {

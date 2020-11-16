@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using MarsRover.Logic;
+using MarsRover.Logic.DTO;
 using Xunit;
 
 namespace MarsRover.Test

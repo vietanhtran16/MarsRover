@@ -1,4 +1,6 @@
 using MarsRover.Logic;
+using MarsRover.Logic.DTO;
+using MarsRover.Logic.Enums;
 using Xunit;
 
 namespace MarsRover.Test
