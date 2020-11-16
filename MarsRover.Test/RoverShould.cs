@@ -14,11 +14,9 @@ namespace MarsRover.Test
         [InlineData(1,1,DirectionEnum.East, 2,1, DirectionEnum.East)]
         public void MoveForward(int initialX, int initialY, char initialDirection, int expectedX, int expectedY, char expectedDirection)
         {
-            var location = new Coordinate();
-            location.SetXCoordinate(initialX);
-            location.SetYCoordinate(initialY);
+            var coordinate = new Coordinate(initialX, initialY);
             
-            var rover = new Rover(location, initialDirection);
+            var rover = new Rover(coordinate, initialDirection);
             rover.MoveForward();
             
             Assert.Equal(expectedX, rover.GetCoordinate().GetXCoordinate());
@@ -33,11 +31,9 @@ namespace MarsRover.Test
         [InlineData(2,1,DirectionEnum.West, 3,1, DirectionEnum.West)]
         public void MoveBackward(int initialX, int initialY, char initialDirection, int expectedX, int expectedY, char expectedDirection)
         {
-            var location = new Coordinate();
-            location.SetXCoordinate(initialX);
-            location.SetYCoordinate(initialY);
+            var coordinate = new Coordinate(initialX, initialY);
             
-            var rover = new Rover(location, initialDirection);
+            var rover = new Rover(coordinate, initialDirection);
             rover.MoveBackward();
             
             Assert.Equal(expectedX, rover.GetCoordinate().GetXCoordinate());
@@ -54,11 +50,9 @@ namespace MarsRover.Test
         {
             const int xCoordinate = 2;
             const int yCoordinate = 2;
-            var location = new Coordinate();
-            location.SetXCoordinate(xCoordinate);
-            location.SetYCoordinate(yCoordinate);
+            var coordinate = new Coordinate(xCoordinate, yCoordinate);
             
-            var rover = new Rover(location, initialDirection);
+            var rover = new Rover(coordinate, initialDirection);
             rover.TurnRight();
             
             Assert.Equal(xCoordinate, rover.GetCoordinate().GetXCoordinate());
@@ -75,11 +69,9 @@ namespace MarsRover.Test
         {
             const int xCoordinate = 2;
             const int yCoordinate = 2;
-            var location = new Coordinate();
-            location.SetXCoordinate(xCoordinate);
-            location.SetYCoordinate(yCoordinate);
+            var coordinate = new Coordinate(xCoordinate, yCoordinate);
             
-            var rover = new Rover(location, initialDirection);
+            var rover = new Rover(coordinate, initialDirection);
             rover.TurnLeft();
             
             Assert.Equal(xCoordinate, rover.GetCoordinate().GetXCoordinate());
