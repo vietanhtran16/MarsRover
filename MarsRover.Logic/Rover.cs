@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using MarsRover.Logic.DTO;
 using MarsRover.Logic.Enums;
@@ -29,42 +30,28 @@ namespace MarsRover.Logic
 
         public void MoveForward()
         {
-            var currentDirection = GetDirection();
-            switch (currentDirection)
+            var moveForwardManual = new Dictionary<char, Action>()
             {
-                case DirectionEnum.South:
-                    GoUp();
-                    break;
-                case DirectionEnum.North:
-                    GoDown();
-                    break;
-                case DirectionEnum.East:
-                    GoRight();
-                    break;
-                default:
-                    GoLeft();
-                    break;
-            }
+                { DirectionEnum.North, GoDown },
+                { DirectionEnum.South, GoUp },
+                { DirectionEnum.East, GoRight },
+                { DirectionEnum.West, GoLeft }
+            };
+            var currentDirection = GetDirection();
+            moveForwardManual[currentDirection]();
         }
         
         public void MoveBackward()
         {
-            var currentDirection = GetDirection();
-            switch (currentDirection)
+            var moveBackwardManual = new Dictionary<char, Action>()
             {
-                case DirectionEnum.North:
-                    GoUp();
-                    break;
-                case DirectionEnum.East:
-                    GoLeft();
-                    break;
-                case DirectionEnum.West:
-                    GoRight();
-                    break;
-                default:
-                    GoDown();
-                    break;
-            }
+                { DirectionEnum.North, GoUp },
+                { DirectionEnum.South, GoDown },
+                { DirectionEnum.East, GoLeft },
+                { DirectionEnum.West, GoRight }
+            };
+            var currentDirection = GetDirection();
+            moveBackwardManual[currentDirection]();
         }
         
         public void TurnRight()
