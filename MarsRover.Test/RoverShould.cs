@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using MarsRover.Logic;
 using MarsRover.Logic.DTO;
 using MarsRover.Logic.Enums;
@@ -15,8 +17,9 @@ namespace MarsRover.Test
         public void MoveForward(int initialX, int initialY, char initialDirection, int expectedX, int expectedY, char expectedDirection)
         {
             var coordinate = new Coordinate(initialX, initialY);
+            var world = new World(5, 5);
+            var rover = new Rover(coordinate, initialDirection, world);
             
-            var rover = new Rover(coordinate, initialDirection);
             rover.MoveForward();
             
             Assert.Equal(expectedX, rover.GetCoordinate().GetXCoordinate());
@@ -32,8 +35,9 @@ namespace MarsRover.Test
         public void MoveBackward(int initialX, int initialY, char initialDirection, int expectedX, int expectedY, char expectedDirection)
         {
             var coordinate = new Coordinate(initialX, initialY);
+            var world = new World(5, 5);
+            var rover = new Rover(coordinate, initialDirection, world);
             
-            var rover = new Rover(coordinate, initialDirection);
             rover.MoveBackward();
             
             Assert.Equal(expectedX, rover.GetCoordinate().GetXCoordinate());
@@ -50,9 +54,10 @@ namespace MarsRover.Test
         {
             const int xCoordinate = 2;
             const int yCoordinate = 2;
+            var world = new World(5, 5);
             var coordinate = new Coordinate(xCoordinate, yCoordinate);
+            var rover = new Rover(coordinate, initialDirection, world);
             
-            var rover = new Rover(coordinate, initialDirection);
             rover.TurnRight();
             
             Assert.Equal(xCoordinate, rover.GetCoordinate().GetXCoordinate());
@@ -70,13 +75,38 @@ namespace MarsRover.Test
             const int xCoordinate = 2;
             const int yCoordinate = 2;
             var coordinate = new Coordinate(xCoordinate, yCoordinate);
+            var world = new World(5, 5);
+            var rover = new Rover(coordinate, initialDirection, world);
             
-            var rover = new Rover(coordinate, initialDirection);
             rover.TurnLeft();
             
             Assert.Equal(xCoordinate, rover.GetCoordinate().GetXCoordinate());
             Assert.Equal(yCoordinate, rover.GetCoordinate().GetYCoordinate());
             Assert.Equal(expectedDirection, rover.GetDirection());
         }
+
+        [Theory]
+        [MemberData(nameof(NotMoveForwardIfThereIsObstacleTestData))]
+        public void NotMoveForwardIfThereIsObstacle(int xCoord, int yCoord, char direction, World world, Coordinate obstacle)
+        {
+            var coordinate = new Coordinate(xCoord, yCoord);
+            world.SetObstacle(obstacle);
+            var rover = new Rover(coordinate, direction, world);
+            
+            var exception = Assert.Throws<Exception>(() => rover.MoveForward());
+            
+            Assert.Equal($"Bump into obstacle at {obstacle.GetXCoordinate()},{obstacle.GetYCoordinate()}", exception.Message);
+            Assert.Equal(xCoord, rover.GetCoordinate().GetXCoordinate());
+            Assert.Equal(yCoord, rover.GetCoordinate().GetYCoordinate());
+        }
+        
+        public static IEnumerable<object[]> NotMoveForwardIfThereIsObstacleTestData =>
+            new List<object[]>
+            {
+                new object[] { 1,1,DirectionEnum.South, new World(5, 5), new Coordinate(1,2) },
+                new object[] { 1,2,DirectionEnum.North, new World(5, 5), new Coordinate(1,1) },
+                new object[] { 1,1,DirectionEnum.East, new World(5, 5), new Coordinate(2,1) },
+                new object[] { 2,1,DirectionEnum.West, new World(5, 5), new Coordinate(1,1) }
+            };
     }
 }

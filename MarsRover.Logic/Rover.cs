@@ -9,13 +9,15 @@ namespace MarsRover.Logic
     {
         private Coordinate _coordinate;
         private char _direction;
+        private readonly World _world;
 
         private readonly List<char> _turnRightOrder = new List<char>()
             {DirectionEnum.North, DirectionEnum.East, DirectionEnum.South, DirectionEnum.West};
-        public Rover(Coordinate coordinate, char initialDirection)
+        public Rover(Coordinate coordinate, char initialDirection, World world)
         {
             _coordinate = coordinate;
             _direction = initialDirection;
+            _world = world;
         }
 
         public Coordinate GetCoordinate()
@@ -30,28 +32,37 @@ namespace MarsRover.Logic
 
         public void MoveForward()
         {
-            var moveForwardManual = new Dictionary<char, Action>()
+            var moveForwardManual = new Dictionary<char, Func<Coordinate>>()
             {
-                { DirectionEnum.North, GoDown },
-                { DirectionEnum.South, GoUp },
-                { DirectionEnum.East, GoRight },
-                { DirectionEnum.West, GoLeft }
+                { DirectionEnum.North, NextMoveDown },
+                { DirectionEnum.South, NexMoveUp },
+                { DirectionEnum.East, NextMoveRight },
+                { DirectionEnum.West, NextMoveLeft }
             };
             var currentDirection = GetDirection();
-            moveForwardManual[currentDirection]();
+            var newCoordinate = moveForwardManual[currentDirection]();
+            if (_world.IsEmpty(newCoordinate))
+            {
+                SetCoordinate(newCoordinate);
+            }
+            else
+            {
+                throw new Exception($"Bump into obstacle at {newCoordinate.GetXCoordinate()},{newCoordinate.GetYCoordinate()}");
+            }
         }
         
         public void MoveBackward()
         {
-            var moveBackwardManual = new Dictionary<char, Action>()
+            var moveBackwardManual = new Dictionary<char, Func<Coordinate>>()
             {
-                { DirectionEnum.North, GoUp },
-                { DirectionEnum.South, GoDown },
-                { DirectionEnum.East, GoLeft },
-                { DirectionEnum.West, GoRight }
+                { DirectionEnum.North, NexMoveUp },
+                { DirectionEnum.South, NextMoveDown },
+                { DirectionEnum.East, NextMoveLeft },
+                { DirectionEnum.West, NextMoveRight }
             };
             var currentDirection = GetDirection();
-            moveBackwardManual[currentDirection]();
+            var newCoordinate = moveBackwardManual[currentDirection]();
+            SetCoordinate(newCoordinate);
         }
         
         public void TurnRight()
@@ -79,28 +90,24 @@ namespace MarsRover.Logic
             _direction = newDirection;
         }
         
-        private void GoUp()
+        private Coordinate NexMoveUp()
         {
-            var newCoordinate = new Coordinate(_coordinate.GetXCoordinate(), _coordinate.GetYCoordinate() + 1);
-            SetCoordinate(newCoordinate);
+            return new Coordinate(_coordinate.GetXCoordinate(), _coordinate.GetYCoordinate() + 1);
         }
 
-        private void GoDown()
+        private Coordinate NextMoveDown()
         {
-            var newCoordinate = new Coordinate(_coordinate.GetXCoordinate(), _coordinate.GetYCoordinate() - 1);
-            SetCoordinate(newCoordinate);
+            return new Coordinate(_coordinate.GetXCoordinate(), _coordinate.GetYCoordinate() - 1);
         }
 
-        private void GoLeft()
+        private Coordinate NextMoveLeft()
         {
-            var newCoordinate = new Coordinate(_coordinate.GetXCoordinate() - 1, _coordinate.GetYCoordinate());
-            SetCoordinate(newCoordinate);
+            return new Coordinate(_coordinate.GetXCoordinate() - 1, _coordinate.GetYCoordinate());
         }
 
-        private void GoRight()
+        private Coordinate NextMoveRight()
         {
-            var newCoordinate = new Coordinate(_coordinate.GetXCoordinate() + 1, _coordinate.GetYCoordinate());
-            SetCoordinate(newCoordinate);
+            return new Coordinate(_coordinate.GetXCoordinate() + 1, _coordinate.GetYCoordinate());
         }
         
         private void SetCoordinate(Coordinate coordinate)
