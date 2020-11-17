@@ -7,7 +7,7 @@ namespace MarsRover.Logic
 {
     public class Rover
     {
-        private readonly Coordinate _coordinate;
+        private Coordinate _coordinate;
         private char _direction;
 
         private readonly List<char> _turnRightOrder = new List<char>()
@@ -81,22 +81,31 @@ namespace MarsRover.Logic
         
         private void GoUp()
         {
-            _coordinate.SetYCoordinate(_coordinate.GetYCoordinate() + 1);
+            var newCoordinate = new Coordinate(_coordinate.GetXCoordinate(), _coordinate.GetYCoordinate() + 1);
+            SetCoordinate(newCoordinate);
         }
 
         private void GoDown()
         {
-            _coordinate.SetYCoordinate(_coordinate.GetYCoordinate() - 1);
+            var newCoordinate = new Coordinate(_coordinate.GetXCoordinate(), _coordinate.GetYCoordinate() - 1);
+            SetCoordinate(newCoordinate);
         }
 
         private void GoLeft()
         {
-            _coordinate.SetXCoordinate(_coordinate.GetXCoordinate() - 1);
+            var newCoordinate = new Coordinate(_coordinate.GetXCoordinate() - 1, _coordinate.GetYCoordinate());
+            SetCoordinate(newCoordinate);
         }
 
         private void GoRight()
         {
-            _coordinate.SetXCoordinate(_coordinate.GetXCoordinate() + 1);
+            var newCoordinate = new Coordinate(_coordinate.GetXCoordinate() + 1, _coordinate.GetYCoordinate());
+            SetCoordinate(newCoordinate);
+        }
+        
+        private void SetCoordinate(Coordinate coordinate)
+        {
+            _coordinate = coordinate;
         }
     }
 }

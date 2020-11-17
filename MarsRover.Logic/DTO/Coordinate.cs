@@ -2,8 +2,8 @@ namespace MarsRover.Logic.DTO
 {
     public class Coordinate
     {
-        private int _xCoordinate;
-        private int _yCoordinate;
+        private readonly int _xCoordinate;
+        private readonly int _yCoordinate;
         
         public Coordinate()
         {
@@ -15,19 +15,9 @@ namespace MarsRover.Logic.DTO
             _yCoordinate = yCoordinate;
         }
 
-        public void SetXCoordinate(int value)
-        {
-            _xCoordinate = value;
-        }
-
         public int GetXCoordinate()
         {
             return _xCoordinate;
-        }
-
-        public void SetYCoordinate(int value)
-        {
-            _yCoordinate = value;
         }
 
         public int GetYCoordinate()

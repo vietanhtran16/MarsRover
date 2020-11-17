@@ -19,9 +19,7 @@ namespace MarsRover.Test
         [Fact]
         public void PlaceObstacle()
         {
-            var obstacle = new Coordinate();
-            obstacle.SetXCoordinate(1);
-            obstacle.SetYCoordinate(5);
+            var obstacle = new Coordinate(1, 5);
             var world = new World(5, 5);
 
             world.SetObstacle(obstacle);
