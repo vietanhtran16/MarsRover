@@ -27,5 +27,31 @@ namespace MarsRover.Test
             var expectedObstacles = new List<Coordinate>() { obstacle };
             Assert.Equal(expectedObstacles, world.GetObstacles());
         }
+
+        [Fact]
+        public void ReturnTrueIfCoordinateIsEmpty()
+        {
+            var obstacle = new Coordinate(1, 5);
+            var coordinateToCheck = new Coordinate(1, 1);
+            var world = new World(5, 5);
+            world.SetObstacle(obstacle);
+
+            var isEmpty = world.IsEmpty(coordinateToCheck);
+            
+            Assert.True(isEmpty);
+        }
+        
+        [Fact]
+        public void ReturnFalseIfCoordinateIsNotEmpty()
+        {
+            var obstacle = new Coordinate(1, 5);
+            var coordinateToCheck = new Coordinate(1, 5);
+            var world = new World(5, 5);
+            world.SetObstacle(obstacle);
+
+            var isEmpty = world.IsEmpty(coordinateToCheck);
+            
+            Assert.False(isEmpty);
+        }
     }
 }
