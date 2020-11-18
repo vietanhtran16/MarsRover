@@ -108,5 +108,29 @@ namespace MarsRover.Test
                 new object[] { 1,1,DirectionEnum.East, new World(5, 5), new Coordinate(2,1) },
                 new object[] { 2,1,DirectionEnum.West, new World(5, 5), new Coordinate(1,1) }
             };
+        
+        [Theory]
+        [MemberData(nameof(NotMoveBackwardIfThereIsObstacleTestData))]
+        public void NotMoveBackwardIfThereIsObstacle(int xCoord, int yCoord, char direction, World world, Coordinate obstacle)
+        {
+            var coordinate = new Coordinate(xCoord, yCoord);
+            world.SetObstacle(obstacle);
+            var rover = new Rover(coordinate, direction, world);
+            
+            var exception = Assert.Throws<Exception>(() => rover.MoveBackward());
+            
+            Assert.Equal($"Bump into obstacle at {obstacle.GetXCoordinate()},{obstacle.GetYCoordinate()}", exception.Message);
+            Assert.Equal(xCoord, rover.GetCoordinate().GetXCoordinate());
+            Assert.Equal(yCoord, rover.GetCoordinate().GetYCoordinate());
+        }
+        
+        public static IEnumerable<object[]> NotMoveBackwardIfThereIsObstacleTestData =>
+            new List<object[]>
+            {
+                new object[] { 1,2,DirectionEnum.South, new World(5, 5), new Coordinate(1,1) },
+                new object[] { 1,1,DirectionEnum.North, new World(5, 5), new Coordinate(1,2) },
+                new object[] { 2,1,DirectionEnum.East, new World(5, 5), new Coordinate(1,1) },
+                new object[] { 1,1,DirectionEnum.West, new World(5, 5), new Coordinate(2,1) }
+            };
     }
 }

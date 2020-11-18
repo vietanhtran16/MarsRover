@@ -41,16 +41,9 @@ namespace MarsRover.Logic
             };
             var currentDirection = GetDirection();
             var newCoordinate = moveForwardManual[currentDirection]();
-            if (_world.IsEmpty(newCoordinate))
-            {
-                SetCoordinate(newCoordinate);
-            }
-            else
-            {
-                throw new Exception($"Bump into obstacle at {newCoordinate.GetXCoordinate()},{newCoordinate.GetYCoordinate()}");
-            }
+            TryToMove(newCoordinate);
         }
-        
+
         public void MoveBackward()
         {
             var moveBackwardManual = new Dictionary<char, Func<Coordinate>>()
@@ -62,7 +55,19 @@ namespace MarsRover.Logic
             };
             var currentDirection = GetDirection();
             var newCoordinate = moveBackwardManual[currentDirection]();
-            SetCoordinate(newCoordinate);
+            TryToMove(newCoordinate);
+        }
+        
+        private void TryToMove(Coordinate coordinate)
+        {
+            if (_world.IsEmpty(coordinate))
+            {
+                SetCoordinate(coordinate);
+            }
+            else
+            {
+                throw new Exception($"Bump into obstacle at {coordinate.GetXCoordinate()},{coordinate.GetYCoordinate()}");
+            }
         }
         
         public void TurnRight()
