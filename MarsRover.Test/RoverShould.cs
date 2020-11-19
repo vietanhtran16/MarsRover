@@ -153,5 +153,26 @@ namespace MarsRover.Test
                 new object[] { new Coordinate(5, 3),DirectionEnum.East, new World(5, 5), 1, 3 },
                 new object[] { new Coordinate(1, 4),DirectionEnum.West, new World(5, 5), 5, 4 }
             };
+        
+        [Theory]
+        [MemberData(nameof(WrapAtEdgeWhenMoveBackwardTestData))]
+        public void WrapAtEdgeWhenMoveBackward(Coordinate coordinate, char direction, World world, int expectedXCoord, int expectedYCoord)
+        {
+            var rover = new Rover(coordinate, direction, world);
+
+            rover.MoveBackward();
+            
+            Assert.Equal(expectedXCoord, rover.GetCoordinate().GetXCoordinate());
+            Assert.Equal(expectedYCoord, rover.GetCoordinate().GetYCoordinate());
+        }
+        
+        public static IEnumerable<object[]> WrapAtEdgeWhenMoveBackwardTestData =>
+            new List<object[]>
+            {
+                new object[] { new Coordinate(4, 1),DirectionEnum.South, new World(5, 5), 4, 5 },
+                new object[] { new Coordinate(2, 5),DirectionEnum.North, new World(5, 5), 2, 1 },
+                new object[] { new Coordinate(1, 3),DirectionEnum.East, new World(5, 5), 5, 3 },
+                new object[] { new Coordinate(5, 3),DirectionEnum.West, new World(5, 5), 1, 3 }
+            };
     }
 }
