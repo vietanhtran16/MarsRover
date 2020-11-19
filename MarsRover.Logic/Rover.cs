@@ -58,18 +58,6 @@ namespace MarsRover.Logic
             TryToMove(newCoordinate);
         }
         
-        private void TryToMove(Coordinate coordinate)
-        {
-            if (_world.IsEmpty(coordinate))
-            {
-                SetCoordinate(coordinate);
-            }
-            else
-            {
-                throw new Exception($"Bump into obstacle at {coordinate.GetXCoordinate()},{coordinate.GetYCoordinate()}");
-            }
-        }
-        
         public void TurnRight()
         {
             var currentDirection = GetDirection();
@@ -90,9 +78,16 @@ namespace MarsRover.Logic
             SetDirection(newDirection);
         }
         
-        private void SetDirection(char newDirection)
+        private void TryToMove(Coordinate coordinate)
         {
-            _direction = newDirection;
+            if (_world.IsEmpty(coordinate))
+            {
+                SetCoordinate(coordinate);
+            }
+            else
+            {
+                throw new Exception($"Bump into obstacle at {coordinate.GetXCoordinate()},{coordinate.GetYCoordinate()}");
+            }
         }
         
         private Coordinate NexMoveDown()
@@ -117,6 +112,11 @@ namespace MarsRover.Logic
         {
             var newXCoordinate = _coordinate.GetXCoordinate() + 1;
             return new Coordinate(newXCoordinate > _world.GetWidth() ? 1 : newXCoordinate, _coordinate.GetYCoordinate());
+        }
+        
+        private void SetDirection(char newDirection)
+        {
+            _direction = newDirection;
         }
         
         private void SetCoordinate(Coordinate coordinate)
