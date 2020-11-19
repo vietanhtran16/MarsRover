@@ -34,8 +34,8 @@ namespace MarsRover.Logic
         {
             var moveForwardManual = new Dictionary<char, Func<Coordinate>>()
             {
-                { DirectionEnum.North, NextMoveDown },
-                { DirectionEnum.South, NexMoveUp },
+                { DirectionEnum.North, NextMoveUp },
+                { DirectionEnum.South, NexMoveDown },
                 { DirectionEnum.East, NextMoveRight },
                 { DirectionEnum.West, NextMoveLeft }
             };
@@ -48,8 +48,8 @@ namespace MarsRover.Logic
         {
             var moveBackwardManual = new Dictionary<char, Func<Coordinate>>()
             {
-                { DirectionEnum.North, NexMoveUp },
-                { DirectionEnum.South, NextMoveDown },
+                { DirectionEnum.North, NexMoveDown },
+                { DirectionEnum.South, NextMoveUp },
                 { DirectionEnum.East, NextMoveLeft },
                 { DirectionEnum.West, NextMoveRight }
             };
@@ -95,24 +95,28 @@ namespace MarsRover.Logic
             _direction = newDirection;
         }
         
-        private Coordinate NexMoveUp()
+        private Coordinate NexMoveDown()
         {
-            return new Coordinate(_coordinate.GetXCoordinate(), _coordinate.GetYCoordinate() + 1);
+            var newYCoordinate = _coordinate.GetYCoordinate() + 1;
+            return new Coordinate(_coordinate.GetXCoordinate(), newYCoordinate > _world.GetHeight() ? 1 : newYCoordinate);
         }
 
-        private Coordinate NextMoveDown()
+        private Coordinate NextMoveUp()
         {
-            return new Coordinate(_coordinate.GetXCoordinate(), _coordinate.GetYCoordinate() - 1);
+            var newYCoordinate = _coordinate.GetYCoordinate() - 1;
+            return new Coordinate(_coordinate.GetXCoordinate(), newYCoordinate < 1 ? _world.GetHeight() : newYCoordinate);
         }
 
         private Coordinate NextMoveLeft()
         {
-            return new Coordinate(_coordinate.GetXCoordinate() - 1, _coordinate.GetYCoordinate());
+            var newXCoordinate = _coordinate.GetXCoordinate() - 1;
+            return new Coordinate(newXCoordinate < 1 ? _world.GetWidth() : newXCoordinate, _coordinate.GetYCoordinate());
         }
 
         private Coordinate NextMoveRight()
         {
-            return new Coordinate(_coordinate.GetXCoordinate() + 1, _coordinate.GetYCoordinate());
+            var newXCoordinate = _coordinate.GetXCoordinate() + 1;
+            return new Coordinate(newXCoordinate > _world.GetWidth() ? 1 : newXCoordinate, _coordinate.GetYCoordinate());
         }
         
         private void SetCoordinate(Coordinate coordinate)
