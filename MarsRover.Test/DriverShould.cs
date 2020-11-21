@@ -1,28 +1,55 @@
 using MarsRover.Logic;
-using MarsRover.Logic.DTO;
 using MarsRover.Logic.Enums;
+using MarsRover.Logic.Interfaces;
+using Moq;
 using Xunit;
 
 namespace MarsRover.Test
 {
     public class DriverShould
     {
-        [Theory]
-        [InlineData(CommandEnum.Forward, 4, 3, DirectionEnum.East)]
-        [InlineData(CommandEnum.Backward, 2, 3, DirectionEnum.East)]
-        [InlineData(CommandEnum.Right, 3, 3, DirectionEnum.South)]
-        [InlineData(CommandEnum.Left, 3, 3, DirectionEnum.North)]
-        public void IssueCommandToRoverToMove(char commandEnum, int expectedX, int expectedY, char expectedDirection)
+        [Fact]
+        public void IssueCommandToMoveForward()
         {
-            var world = new World(5, 5);
-            var rover = new Rover(new Coordinate(3,3), DirectionEnum.East, world);
-            var driver = new Driver(rover);
+            var mockRover = new Mock<IRover>();
+            var driver = new Driver(mockRover.Object);
 
-            driver.IssueCommand(commandEnum);
+            driver.IssueCommand(CommandEnum.Forward);
             
-            Assert.Equal(expectedX, rover.GetCoordinate().GetXCoordinate());
-            Assert.Equal(expectedY, rover.GetCoordinate().GetYCoordinate());
-            Assert.Equal(expectedDirection, rover.GetDirection());
+            mockRover.Verify(rover => rover.MoveForward(), Times.Once);
+        }
+        
+        [Fact]
+        public void IssueCommandToMoveBackward()
+        {
+            var mockRover = new Mock<IRover>();
+            var driver = new Driver(mockRover.Object);
+
+            driver.IssueCommand(CommandEnum.Backward);
+            
+            mockRover.Verify(rover => rover.MoveBackward(), Times.Once);
+        }
+        
+        [Fact]
+        public void IssueCommandTurnRight()
+        {
+            var mockRover = new Mock<IRover>();
+            var driver = new Driver(mockRover.Object);
+
+            driver.IssueCommand(CommandEnum.Right);
+            
+            mockRover.Verify(rover => rover.TurnRight(), Times.Once);
+        }
+        
+        [Fact]
+        public void IssueCommandTurnLeft()
+        {
+            var mockRover = new Mock<IRover>();
+            var driver = new Driver(mockRover.Object);
+
+            driver.IssueCommand(CommandEnum.Left);
+            
+            mockRover.Verify(rover => rover.TurnLeft(), Times.Once);
         }
     }
 }

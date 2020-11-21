@@ -2,13 +2,14 @@ using System;
 using System.Collections.Generic;
 using MarsRover.Logic.DTO;
 using MarsRover.Logic.Enums;
+using MarsRover.Logic.Interfaces;
 
 namespace MarsRover.Logic
 {
     public class Driver
     {
-        private readonly Rover _rover;
-        public Driver(Rover rover)
+        private readonly IRover _rover;
+        public Driver(IRover rover)
         {
             _rover = rover;
         }

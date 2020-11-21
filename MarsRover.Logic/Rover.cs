@@ -2,10 +2,11 @@ using System;
 using System.Collections.Generic;
 using MarsRover.Logic.DTO;
 using MarsRover.Logic.Enums;
+using MarsRover.Logic.Interfaces;
 
 namespace MarsRover.Logic
 {
-    public class Rover
+    public class Rover: IRover
     {
         private Coordinate _coordinate;
         private char _direction;
