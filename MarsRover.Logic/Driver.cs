@@ -13,6 +13,14 @@ namespace MarsRover.Logic
         {
             _rover = rover;
         }
+        
+        public void IssueCommands(string commands)
+        {
+            foreach (var command in commands)
+            {
+                IssueCommand(command);
+            }
+        }
 
         public void IssueCommand(char command)
         {
